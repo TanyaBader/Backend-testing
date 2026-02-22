@@ -1,4 +1,4 @@
-## Задание 1. REST API
+## REST API
 
 ### Два публичных REST API.
 
@@ -54,3 +54,4 @@
 - login - string;
 - id - integer;
 - type - string.
+
