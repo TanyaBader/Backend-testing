@@ -1,0 +1,188 @@
+{
+  "info": {
+    "_postman_id": "a0a9d0a4-f099-49a5-8ed1-5767e0731d22",
+    "name": "QA7",
+    "description": "To run this collection:\n\n1. Create GitHub Personal Access Token\n    \n2. Token must have scopes:\n    \n    - repo\n        \n    - administration\n        \n3. Add token to Environment variable:  \n    token\n    \n4. Select Environment before running requests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44192397",
+    "_collection_link": "https://go.postman.co/collection/44192397-a0a9d0a4-f099-49a5-8ed1-5767e0731d22?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET branch",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "\r",
+              "\r",
+              "// if (pm.response.code === 200) {\r",
+              "//     // Парсим JSON-ответ\r",
+              "//     const responseJson = pm.response.json()[0];\r",
+              "    \r",
+              "//     // Пример: сохраняем access token\r",
+              "//     pm.environment.set(\"branche_name\", responseJson.name);\r",
+              "// }"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/vnd.github+json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{user_token}}"
+          },
+          {
+            "key": "X-GitHub-Api-Version",
+            "value": "2022-11-28",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{host}}/repos/{{OWNER}}/{{REPO}}/branches",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "repos",
+            "{{OWNER}}",
+            "{{REPO}}",
+            "branches"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create repo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/vnd.github+json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}"
+          },
+          {
+            "key": "X-GitHub-Api-Version",
+            "value": "2022-11-28"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"develop\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{host}}/user/repos",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "user",
+            "repos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete rep",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {\r",
+              "    pm.response.to.have.status(204);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/vnd.github+json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}"
+          },
+          {
+            "key": "X-GitHub-Api-Version",
+            "value": "2022-11-28"
+          }
+        ],
+        "url": {
+          "raw": "{{host}}/repos/{{OWNER}}/develop",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "repos",
+            "{{OWNER}}",
+            "develop"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
